@@ -32,7 +32,20 @@ class Firebase {
       displayName: username
     });
   }
- 
+  addUserInformation(username, phone, adress, date, image) {
+    if (!this.auth.currentUser) {
+      return alert("Not authorised");
+    }
+    return this.db.doc(`user_info/${this.auth.currentUser.uid}`).set({
+      information: {
+        username,
+        phone,
+        adress,
+        date,
+        image
+      }
+    });
+  }
 }
 
 export default new Firebase();
