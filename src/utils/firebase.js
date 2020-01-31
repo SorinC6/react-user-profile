@@ -46,6 +46,118 @@ class Firebase {
       }
     });
   }
+
+  async updateImage(image) {
+    if (!this.auth.currentUser) {
+      return alert("Not authorised");
+    }
+
+    const information = await this.db
+      .doc(`user_info/${this.auth.currentUser.uid}`)
+      .get();
+    const before = information.get("information");
+    console.log(before);
+    return this.db
+      .collection("user_info")
+      .doc(`${this.auth.currentUser.uid}`)
+      .update({
+        information: {
+          image,
+          adress: before.adress,
+          phone: before.phone,
+          username: before.username,
+          date: before.date
+        }
+      });
+  }
+
+  async updateInfo(username, adress, phone, date) {
+    if (!this.auth.currentUser) {
+      return alert("Not authorised");
+    }
+    username &&
+      this.auth.currentUser.updateProfile({
+        displayName: username
+      });
+    const information = await this.db
+      .doc(`user_info/${this.auth.currentUser.uid}`)
+      .get();
+    const before = information.get("information");
+    console.log(before);
+    return this.db
+      .collection("user_info")
+      .doc(`${this.auth.currentUser.uid}`)
+      .update({
+        information: {
+          image: before.image,
+          adress: adress ? adress : before.adress,
+          phone: phone ? phone : before.phone,
+          username: username ? username : before.username,
+          date: date ? date : before.date
+        }
+      });
+  }
+
+  async updateSecurityQuestions(question1, question2, question3) {
+    if (!this.auth.currentUser) {
+      return alert("Not authorised");
+    }
+
+    const information = await this.db
+      .doc(`security_questions/${this.auth.currentUser.uid}`)
+      .get();
+    const before = information.get("questions");
+    return this.db
+      .collection("security_questions")
+      .doc(`${this.auth.currentUser.uid}`)
+      .update({
+        questions: {
+          question1: question1 ? question1 : before.question1,
+          question2: question2 ? question2 : before.question2,
+          question3: question3 ? question3 : before.question3
+        }
+      });
+  }
+
+  addScurityQuestions(question1, question2, question3) {
+    if (!this.auth.currentUser) {
+      return alert("Not authorised");
+    }
+    return this.db.doc(`security_questions/${this.auth.currentUser.uid}`).set({
+      questions: {
+        question1,
+        question2,
+        question3
+      }
+    });
+  }
+
+  isInitialized() {
+    return new Promise(resolve => {
+      this.auth.onAuthStateChanged(resolve);
+    });
+  }
+
+  getCurrentUserName() {
+    return this.auth.currentUser && this.auth.currentUser.displayName;
+  }
+
+  isLoggedIn() {
+    return this.auth.currentUser ? true : false;
+  }
+
+  async getcurrentUserSecurityQuestions() {
+    const questions = await this.db
+      .doc(`security_questions/${this.auth.currentUser.uid}`)
+      .get();
+    return questions.get("questions");
+  }
+  async getUserInfo() {
+    const information = await this.db
+      .doc(`user_info/${this.auth.currentUser.uid}`)
+      .get();
+    return information.get("information");
+  }
 }
 
 export default new Firebase();
