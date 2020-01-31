@@ -8,7 +8,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Avaiable Feature
 - Home Page - user its able to see the home page without having an account
-- once the user its logged in , he's able access Profile and edit his personal information and his security question
+- once the user its logged in , he's able access Profile can edit his personal information and his security question
 - all data is persisted using firesore cloud storage
 - user is able to logout
 
