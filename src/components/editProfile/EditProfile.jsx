@@ -22,10 +22,10 @@ const EditProfile = () => {
 
   return (
     <Tabs onChange={callback} type="card">
-      <TabPane tab="Edit Basic Info" key="1">
+      <TabPane tab="Edit Info" key="1">
         <EditInfo />
       </TabPane>
-      <TabPane tab="Edit Security Questions" key="2">
+      <TabPane tab="Edit Security" key="2">
         <SecurityQuestionView />
       </TabPane>
     </Tabs>

@@ -120,4 +120,8 @@ export default WrappedNormalSecurityForm
 const Root = styled.main`
   width:50%;
   margin:0 auto;
+
+  @media(max-width:700px){
+    width:100%;
+  }
 `
