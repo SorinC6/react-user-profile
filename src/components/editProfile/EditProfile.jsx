@@ -8,7 +8,7 @@ const { TabPane } = Tabs;
 
 const EditProfile = () => {
   function callback(key) {
-    console.log(key);
+    //console.log(key);
   }
   const { dispatch } = useContext(AppContext)
   useEffect(() => {

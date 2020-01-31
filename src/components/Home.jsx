@@ -9,16 +9,16 @@ import { notification } from "antd";
 
 const Home = ({ history }) => {
 
-  if (!firebase.getCurrentUserName()) {
-    // not logged in
-    //alert('Please login first')
-    notification.success({
-      message: "Please Login",
-      description: "This Page will be available after login"
-    });
-    history.replace('/login')
-    return null
-  }
+
+  // For making this page protected uncomment the code bellow
+  // if (!firebase.getCurrentUserName()) {
+  //   notification.success({
+  //     message: "Please Login",
+  //     description: "This Page will be available after login"
+  //   });
+  //   history.replace('/login')
+  //   return null
+  // }
 
   return (
     <Root>

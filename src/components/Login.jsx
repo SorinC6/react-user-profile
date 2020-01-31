@@ -7,7 +7,7 @@ import firebase from '../utils/firebase'
 import { Link } from 'react-router-dom'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 const Login = (props) => {
-  const [user, setUser] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false)
   let history = useHistory();
   const { getFieldDecorator } = props.form;
 
@@ -18,14 +18,17 @@ const Login = (props) => {
       if (!err) {
         //console.log('Received values of form: ', values);
         try {
+          setLoading(true)
           const res = await firebase.login(values.email, values.password)
           console.log(res)
           history.push("/");
+          setLoading(false)
           return notification.success({
             message: "Success",
             description: "Login Successful"
           });
         } catch (error) {
+          setLoading(false)
           console.log(error.message)
           return notification.error({
             message: "Error",
@@ -70,7 +73,7 @@ const Login = (props) => {
           <a className="login-form-forgot" href="">
             Forgot password
           </a>
-          <Button type="primary" htmlType="submit" className="login-form-button">
+          <Button type="primary" htmlType="submit" className="login-form-button" loading={loading}>
             Log in
           </Button>
           Or <Link to="/register">register now!</Link>

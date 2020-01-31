@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { notification } from "antd";
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { Form, Icon, Input, Button, Checkbox, message, Upload, Collapse } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, message, Upload, Collapse, Alert } from 'antd';
 import firebase from '../utils/firebase'
 
 const { Panel } = Collapse;
@@ -31,31 +31,43 @@ function beforeUpload(file) {
 
 
 const Register = (props) => {
-  // const [user, setUser] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false)
+  const [loadingBtn, setLoadingBtn] = useState(false)
+  const [questionComplete, setQuestionComplete] = useState(null)
   const [imageUrl, setImgUrl] = useState("")
   const [image, setImage] = useState('');
   let history = useHistory();
 
   const { getFieldDecorator } = props.form;
-
+  const checkSecurityQuestion = (question1, question2, question3) => {
+    if (question1 && question2 && question3) {
+      setQuestionComplete(false)
+    }
+    else {
+      setQuestionComplete(true)
+    }
+  }
 
   const handleSubmit = e => {
     e.preventDefault();
     props.form.validateFields(async (err, values) => {
-      console.log(values.password, values.email)
+      console.log(values.question1, values.question2, values.question3)
+      checkSecurityQuestion(values.question1, values.question2, values.question3)
       if (!err) {
         console.log('Received values of form: ', values);
+        setLoadingBtn(true)
         try {
           await firebase.register(values.email, values.password, values.username)
           await firebase.addUserInformation(values.username, values.phone, values.adress, values.date, image)
           await firebase.addScurityQuestions(values.question1, values.question2, values.question3)
           history.push("/");
+          setLoadingBtn(false)
           return notification.success({
             message: "Success",
             description: "Register Successful"
           });
         } catch (error) {
+          setLoadingBtn(false)
           console.log(error.message)
           return notification.error({
             message: "Error",
@@ -181,7 +193,7 @@ const Register = (props) => {
         </Form.Item>
         <Form.Item >
           {getFieldDecorator('image', {
-            rules: [{ required: true, message: 'Please input your date of birth!' }],
+            rules: [{ required: true, message: 'Please upload your profile picture!' }],
           })(
             <Upload
               name="avatar"
@@ -204,18 +216,24 @@ const Register = (props) => {
           <a className="login-form-forgot" href="">
             Forgot password
           </a>
-          <Button type="primary" htmlType="submit" className="login-form-button">
+          <Button type="primary" htmlType="submit" className="login-form-button" loading={loadingBtn}>
             Log in
           </Button>
           Or <Link to="/login">login now!</Link>
         </Form.Item>
+        {
+          questionComplete && <Alert
+            message="Please fill all 3 security questions"
+            type="error"
+          />
+        }
         <Collapse onChange={callback}>
-          <Panel header="Sequrity Questios" key="1">
+          <Panel header="Security Questios" key="1">
             <Collapse defaultActiveKey="1">
               <Panel header="What is your favorite car?" key="1">
                 <Form.Item>
                   {getFieldDecorator('question1', {
-                    rules: [{ required: true, message: 'What is your favorite car?' }],
+                    rules: [{ required: true, message: 'This field its required' }],
                   })(
                     <Input
                       prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -227,7 +245,7 @@ const Register = (props) => {
               <Panel header="What is your favorite planet?" key="2">
                 <Form.Item>
                   {getFieldDecorator('question2', {
-                    rules: [{ required: true, message: 'What is your favorite planet?' }],
+                    rules: [{ required: true, message: 'This field its required' }],
                   })(
                     <Input
                       prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -239,7 +257,7 @@ const Register = (props) => {
               <Panel header="What is your favorite animal?" key="3">
                 <Form.Item>
                   {getFieldDecorator('question3', {
-                    rules: [{ required: true, message: 'What is your favorite animal?' }],
+                    rules: [{ required: true, message: 'This field its required' }],
                   })(
                     <Input
                       prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}

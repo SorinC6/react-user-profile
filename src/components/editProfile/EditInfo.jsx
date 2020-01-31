@@ -8,8 +8,6 @@ const EditInfo = () => {
   const { state } = useContext(AppContext)
   const { userInfo } = state
 
-  console.log(userInfo)
-
   return (
     <div>
       <EditImage originalImage={userInfo && userInfo.image} />

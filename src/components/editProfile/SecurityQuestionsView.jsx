@@ -23,7 +23,7 @@ const SecurityQuestionsView = ({ form }) => {
   }, []);
 
   function callback(key) {
-    console.log(key);
+    // console.log(key);
   }
 
   const success = () => {
