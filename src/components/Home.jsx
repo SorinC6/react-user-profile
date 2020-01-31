@@ -1,10 +1,9 @@
-import React, { useContext } from 'react'
-import { AppContext } from '../utils/AppProvider'
+import React from 'react'
 import firebase from '../utils/firebase'
 import Svg from '../assets/hero.svg'
 import styled from 'styled-components'
 import MainContent from './MainContent'
-import { notification } from "antd";
+// import { notification } from "antd";
 
 
 const Home = ({ history }) => {

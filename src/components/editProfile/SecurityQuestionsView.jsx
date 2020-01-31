@@ -10,9 +10,9 @@ const SecurityQuestionsView = ({ form }) => {
   const [loading, setLoading] = useState(false);
   const { state } = useContext(AppContext)
   const { userQuestions } = state
-  const [question1, setQuestion1] = useState(userQuestions.question1)
-  const [question2, setQuestion2] = useState(userQuestions.question2)
-  const [question3, setQuestion3] = useState(userQuestions.question3)
+  const [question1] = useState(userQuestions.question1)
+  const [question2] = useState(userQuestions.question2)
+  const [question3] = useState(userQuestions.question3)
 
   console.log(question3)
 

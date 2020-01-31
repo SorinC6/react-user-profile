@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from 'react'
-import firebase from '../../utils/firebase'
+import React, { useContext } from 'react'
 import { AppContext } from '../../utils/AppProvider'
 import EditImage from './EditImage'
 import EditBio from './EditBio'

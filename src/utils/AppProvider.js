@@ -1,5 +1,4 @@
-import React, { useReducer, createContext, useEffect } from "react";
-import firebase from "../utils/firebase";
+import React, { useReducer, createContext } from "react";
 // const FETCH_USER_DATA = "FETCH_USER_DATA";
 const SET_USER_SECURITY_QUESTIONS = "SET_USER_SECURITY_QUESTIONS";
 const SET_USER_INFO = "SET_USER_INFO";

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { AppContext } from '../utils/AppProvider'
 import firebase from '../utils/firebase'
 import ProfileView from './profile/ProfileView'

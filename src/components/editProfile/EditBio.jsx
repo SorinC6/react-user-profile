@@ -10,7 +10,6 @@ const EditNameBio = ({ form, user }) => {
   const [phone, setPhone] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const { TextArea } = Input;
   useEffect(() => {
     form.getFieldDecorator('username', { initialValue: user && user.username });
     setUsername(user && user.username);
