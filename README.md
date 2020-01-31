@@ -4,7 +4,7 @@
 - for register all available fileds must be provided: photo, phone number, adress, email, password, date of birth, all three security question
 - once a user its register he has the ability to login with his email (unique identifier) and password
 
-## Avaiable Features
+## Available Features
 - Home Page - user its able to see the home page without having an account
 - once the user its logged in , he's able access Profile can edit his personal information and his security question
 - all data is persisted using firesore cloud storage
